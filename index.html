@@ -9,8 +9,9 @@
   <meta name="author" content="Daniel Yoon">
 
   
-  <meta name="description" content="tl;dr Coming from a Microsoft web dev background I&rsquo;m often surprised at how simple yet
-productive ruby can be. An example of this is a short (1 &hellip;">
+  <meta name="description" content="The Problem Vagrant is running slow so you decide to try nfs shared folders since there is
+a documented performance boost
+with it. However, running &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -66,6 +67,86 @@ productive ruby can be. An example of this is a short (1 &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/09/03/vagrant-nfs-mount-failing-on-mac-osx/">Vagrant NFS Mount Failing on Mac Osx</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-09-03T23:01:00+08:00" pubdate data-updated="true">Sep 3<span>rd</span>, 2012</time>
+        
+         | <a href="/blog/2012/09/03/vagrant-nfs-mount-failing-on-mac-osx/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>The Problem</h2>
+
+<p>Vagrant is running slow so you decide to try nfs shared folders since there is
+a <a href="http://vagrantup.com/v1/docs/nfs.html">documented</a> performance boost
+with it. However, running <code>vagrant up</code> fails with the error:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Mounting NFS shared folders failed. This is most often caused by the NFS
+</span><span class='line'>client software not being installed on the guest machine. Please verify
+</span><span class='line'>that the NFS client software is properly installed, and consult any resources
+</span><span class='line'>specific to the linux distro you're using for more information on how to
+</span><span class='line'>do this.</span></code></pre></td></tr></table></div></figure>
+
+
+<p>But I already had nfs on the host and guest machine. The only other clue I
+had was a strange message during the modification of /etc/exports:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[default] Exporting NFS shared folders...
+</span><span class='line'>[vagrant] Preparing to edit /etc/exports. Administrator privileges will be required...
+</span><span class='line'>Password:
+</span><span class='line'>su: Sorry
+</span><span class='line'>su: Sorry
+</span><span class='line'>su: Sorry</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Notice the <code>su: Sorry</code> showing up several times.</p>
+
+<h2>The Solution</h2>
+
+<p>Turns out that even though I gave the right password, my host machine didn&rsquo;t
+have root user enabled. For whatever reason, this was preventing vagrant from
+modifying the guest machine&rsquo;s /etc/exports file (shown by <code>su: Sorry</code>). Once I
+enabled the root user everything worked just fine.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -308,6 +389,10 @@ terminal shell will output <code>"hi"</code>. The terse version of the ping scri
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/09/03/vagrant-nfs-mount-failing-on-mac-osx/">Vagrant NFS Mount Failing on Mac Osx</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2012/06/08/ping-range-of-urls/">Ping Range of Urls</a>

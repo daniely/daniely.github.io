@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Ruby | daniely.github.io]]></title>
   <link href="http://daniely.github.io/blog/categories/ruby/atom.xml" rel="self"/>
   <link href="http://daniely.github.io/"/>
-  <updated>2013-08-08T22:58:33+08:00</updated>
+  <updated>2013-08-08T23:03:21+08:00</updated>
   <id>http://daniely.github.io/</id>
   <author>
     <name><![CDATA[Daniel Yoon]]></name>
@@ -12,6 +12,48 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Vagrant NFS mount failing on mac osx]]></title>
+    <link href="http://daniely.github.io/blog/2012/09/03/vagrant-nfs-mount-failing-on-mac-osx/"/>
+    <updated>2012-09-03T23:01:00+08:00</updated>
+    <id>http://daniely.github.io/blog/2012/09/03/vagrant-nfs-mount-failing-on-mac-osx</id>
+    <content type="html"><![CDATA[<h2>The Problem</h2>
+
+<p>Vagrant is running slow so you decide to try nfs shared folders since there is
+a <a href="http://vagrantup.com/v1/docs/nfs.html">documented</a> performance boost
+with it. However, running <code>vagrant up</code> fails with the error:</p>
+
+<p><code>
+Mounting NFS shared folders failed. This is most often caused by the NFS
+client software not being installed on the guest machine. Please verify
+that the NFS client software is properly installed, and consult any resources
+specific to the linux distro you're using for more information on how to
+do this.
+</code></p>
+
+<p>But I already had nfs on the host and guest machine. The only other clue I
+had was a strange message during the modification of /etc/exports:</p>
+
+<p><code>
+[default] Exporting NFS shared folders...
+[vagrant] Preparing to edit /etc/exports. Administrator privileges will be required...
+Password:
+su: Sorry
+su: Sorry
+su: Sorry
+</code></p>
+
+<p>Notice the <code>su: Sorry</code> showing up several times.</p>
+
+<h2>The Solution</h2>
+
+<p>Turns out that even though I gave the right password, my host machine didn&rsquo;t
+have root user enabled. For whatever reason, this was preventing vagrant from
+modifying the guest machine&rsquo;s /etc/exports file (shown by <code>su: Sorry</code>). Once I
+enabled the root user everything worked just fine.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Ping Range of Urls]]></title>
