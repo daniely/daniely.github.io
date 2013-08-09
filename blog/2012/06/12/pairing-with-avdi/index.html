@@ -1,0 +1,337 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<script data-cfasync="false" type="text/javascript" src="//use.typekit.net/axj3cfp.js"></script>
+	<script data-cfasync="false" type="text/javascript">try{Typekit.load();}catch(e){}</script>
+	<meta charset="utf-8">
+	<title>Pairing With Avdi  | daniely.github.io</title>
+
+<meta name="author" content="Daniel Yoon"> 
+
+<meta name="description" content="Intro Back in 2012 Avdi Grimm was offering to pair program
+for free &ndash; all you had to do was ask. Avdi no longer
+offers this amazing service but &hellip;"> <meta name="keywords" content="">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="daniely.github.io" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css" media="screen" />
+<script type="text/javascript" src="/fancybox/jquery.fancybox.pack.js"></script>
+
+<script language="Javascript" type="text/javascript">
+$(document).ready(
+  function() {
+    (function($) {
+      $(".fancybox[data-content-id]").each(function() {
+        this.href = $(this).data('content-id');
+      });
+      $(".fancybox").fancybox({
+        beforeLoad: function() {
+          var el, 
+              id = $(this.element).data('title-id');
+
+          if (id) {
+            el = $('#' + id);
+
+            if (el.length) {
+              this.title = el.html();
+            }
+          }
+          if ($(this).data('content')) {
+            this.content = $(this).data('content');
+          }
+        },
+        helpers: {
+          title: {
+            type: 'inside'
+          }
+        }
+      });
+    })(jQuery);
+  }
+);
+</script>
+	
+</head>
+
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">daniely.github.io</a></h1>
+<h4>dan dan dan yoon tries to porgram</h4>
+<nav id="main-nav"><ul>
+	<li><a href="/">Blog</a></li>
+	<li><a href="/about">About</a></li>
+	<li><a href="/portfolio">Portfolio</a></li>
+	<li><a href="/archives">Archive</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul>
+	<li><a href="/">Blog</a></li>
+	<li><a href="/about">About</a></li>
+	<li><a href="/portfolio">Portfolio</a></li>
+	<li><a href="/archives">Archive</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="http://google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:daniely.github.io">
+			</form>
+		</div>
+	</div>
+</nav>
+
+
+</header>
+
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">Pairing With Avdi</h2>
+	<div class="entry-content"><h2>Intro</h2>
+
+<p>Back in 2012 <a href="http://devblog.avdi.org/">Avdi Grimm</a> was offering to pair program
+for free &ndash; all you had to do was ask. Avdi <a href="http://devblog.avdi.org/2013/02/19/taking-a-break-from-pair-programming/">no longer</a>
+offers this amazing service but I wanted to at least share about one of our pairing
+sessions as I feel very lucky to have had the opportunity.</p>
+
+<h2>Spree Installer Bug</h2>
+
+<p>The first problem we tackled was a small bug in <a href="https://github.com/spree/spree">Spree Commerce</a>.
+During installation it would sometimes incorrectly detect a successful imagemagick
+installation.  I had already submitted
+a <a href="https://github.com/spree/spree/pull/1533">pull request</a> but I didn&rsquo;t know
+how to go about writing a test for it.</p>
+
+<p>In the end we decided not to write a real test but we did do a quick spike.
+Without going into too much detail, the original
+pull request runs a shell command then checks the exit code. If it runs without
+errors we can assume imagemagick is correctly installed.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># shell command to check if imagemagick is installed correctly</span>
+</span><span class='line'><span class="sx">%x(identify -version)</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># check exit code</span>
+</span><span class='line'><span class="vg">$?</span> <span class="o">=&gt;</span> <span class="c1">#&lt;Process::Status: pid 16493 exit 0&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># better way to check</span>
+</span><span class='line'><span class="vg">$?</span><span class="o">.</span><span class="n">success?</span> <span class="o">=&gt;</span> <span class="kp">true</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>First thing Avdi says is, &ldquo;lets see if we can override the %x command&rdquo;. I just
+stared at him blankly on our screenshare. Wut? How? Do we write a method like
+<code>def %x(command)</code> or something? I tried, it doesn&rsquo;t work. So what to do?</p>
+
+<p>Another common way to run shell commands from ruby is to use backticks.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="sb">`pwd`</span> <span class="o">=&gt;</span> <span class="s2">&quot;/Users/daniel/code</span><span class="se">\n</span><span class="s2">&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Somehow Avdi knew that the <code>%x</code> syntax uses backticks. It&rsquo;s <a href="http://ruby-doc.org/core-2.0/Kernel.html#method-i-60">documented</a>
+but I was still surprised he knew this. He had a hunch that we could override
+backticks and in turn override <code>%x</code> and that&rsquo;s exactly what we did.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Foo</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">`</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s1">&#39;hello&#39;</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>But after we wrote this bit I was stuck again. How the heck do you call that
+method? <code>Foo.new`('some command')</code> ??? That wont work. The answer is to use
+<code>instance_eval</code>.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">o</span> <span class="o">=</span> <span class="no">Foo</span><span class="o">.</span><span class="n">new</span>
+</span><span class='line'><span class="n">o</span><span class="o">.</span><span class="n">instance_eval</span> <span class="p">{</span> <span class="sb">`ls`</span> <span class="p">}</span>
+</span><span class='line'><span class="c1"># =&gt; &#39;hello&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># with the %x syntax</span>
+</span><span class='line'><span class="n">o</span><span class="o">.</span><span class="n">instance_eval</span> <span class="p">{</span> <span class="sx">%x[ls]</span> <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># exit code ok?</span>
+</span><span class='line'><span class="vg">$?</span>  <span class="c1"># =&gt; 0</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The other issue was figuring out whether or not we could override the <code>$?</code>
+value. But turns out it&rsquo;s read only.</p>
+
+<p>This was the point when Avdi realized that there&rsquo;s no reason
+to use backticks or the <code>%x[]</code> way of making system calls because these
+versions are mainly used for their return values. All we want to know is if the
+command executed successfully and relying on
+<code>$?</code> for that info is in a way reaching outside of our methods boundaries.</p>
+
+<p>A simpler/better approach is to call the command and see if
+it was successful or not. That&rsquo;s it. And we can do just that with <code>system</code>. Thus our
+code refactored to this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">success</span> <span class="o">=</span> <span class="nb">system</span><span class="p">(</span><span class="s1">&#39;identify -version&#39;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>We replaced 7 lines of code with just that one call in a new
+<a href="https://github.com/spree/spree/pull/1660/files">pull request</a></p>
+
+<h2>Double Error Messages</h2>
+
+<p>Then we talked about the double error messages that show up when you have a form &lsquo;hint&rsquo;
+that&rsquo;s the same as the error message. I was asking Avdi to help me figure out
+how to &ldquo;correctly&rdquo; change the way rails handles this. But it turns out the
+&ldquo;correct&rdquo; solution is to not touch rails at all. Instead, change the markup.
+This was solved by adding a css style to hide the hint when an error
+group is present. That&rsquo;s it! simple!</p>
+
+<h2>Finding Solutions</h2>
+
+<p>This was a valuable lesson I learned from Avdi. While he has the technical chops
+to program his way around things that&rsquo;s not what he turns to first.
+Instead, he looks to see if the solution being implemented is the right fit.
+Often times it&rsquo;s not and there might be a simpler solution to the problem. We just
+saw two examples of that.</p>
+
+<h2>Getting Better</h2>
+
+<p>For the last part of our session I asked for advice on improving as a developer.
+These are the tips he gave in no particular order:</p>
+
+<ul>
+<li>Pair program</li>
+<li>Read code. rack is a good codebase to look at</li>
+<li>Read books. Blogs are ok but books tend to have less errors
+
+<ul>
+<li>Eloquent Ruby, Ruby Best Practices, The Ruby Way, Ruby Quiz,
+ruby talk mailing list, anything written by James Gray,
+Peepcode Play by Play</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>Thanks Avdi for the awesome pairing session!</h2>
+</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-06-12T17:54:00+08:00" pubdate data-updated="true">Jun 12<span>th</span>, 2012</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/pair-programming/'>Pair Programming</a>, <a class='category' href='/blog/categories/ruby/'>Ruby</a>
+
+
+</div>
+	
+		<span class="comments"><a href="/blog/2012/06/12/pairing-with-avdi/#disqus_thread">Comments</a></span>
+	
+</div></article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+<!---	<a class="addthis_counter addthis_pill_style"></a> --->
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+<section id="comment">
+    <h2 class="title">Comments</h2>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2013
+
+    Daniel Yoon
+
+<br>
+Powered by Octopress.
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'dyblog';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://daniely.github.io/blog/2012/06/12/pairing-with-avdi/';
+        var disqus_url = 'http://daniely.github.io/blog/2012/06/12/pairing-with-avdi/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+</body>
+</html>
