@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Vagrant NFS mount failing on mac osx"
-date: 2012-09-03 23:01
+date: 2012-05-03 23:01
 comments: true
 categories: [Ruby]
 ---
