@@ -1,0 +1,271 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<script data-cfasync="false" type="text/javascript" src="//use.typekit.net/axj3cfp.js"></script>
+	<script data-cfasync="false" type="text/javascript">try{Typekit.load();}catch(e){}</script>
+	<meta charset="utf-8">
+	<title>Using Foreman  | daniely.github.io</title>
+
+<meta name="author" content="Daniel Yoon"> 
+
+<meta name="description" content="Intro One of the Rails apps I&rsquo;m working on depends on a lot of locally running
+services &ndash; database, job queue, web services, just to name &hellip;"> <meta name="keywords" content="">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="daniely.github.io" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css" media="screen" />
+<script type="text/javascript" src="/fancybox/jquery.fancybox.pack.js"></script>
+
+<script language="Javascript" type="text/javascript">
+$(document).ready(
+  function() {
+    (function($) {
+      $(".fancybox[data-content-id]").each(function() {
+        this.href = $(this).data('content-id');
+      });
+      $(".fancybox").fancybox({
+        beforeLoad: function() {
+          var el, 
+              id = $(this.element).data('title-id');
+
+          if (id) {
+            el = $('#' + id);
+
+            if (el.length) {
+              this.title = el.html();
+            }
+          }
+          if ($(this).data('content')) {
+            this.content = $(this).data('content');
+          }
+        },
+        helpers: {
+          title: {
+            type: 'inside'
+          }
+        }
+      });
+    })(jQuery);
+  }
+);
+</script>
+	
+</head>
+
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">daniely.github.io</a></h1>
+<h4>Learning by sharing</h4>
+<nav id="main-nav"><ul>
+	<li><a href="/">Blog</a></li>
+	<li><a href="/about">About</a></li>
+	<li><a href="/portfolio">Portfolio</a></li>
+	<li><a href="/archives">Archive</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul>
+	<li><a href="/">Blog</a></li>
+	<li><a href="/about">About</a></li>
+	<li><a href="/portfolio">Portfolio</a></li>
+	<li><a href="/archives">Archive</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="http://google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:daniely.github.io">
+			</form>
+		</div>
+	</div>
+</nav>
+
+
+</header>
+
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">Using Foreman</h2>
+	<div class="entry-content"><h2>Intro</h2>
+
+<p>One of the Rails apps I&rsquo;m working on depends on a lot of locally running
+services &ndash; database, job queue, web services, just to name a few. When I
+started on the project I was opening up a new iTerm2 tab for each service
+but that got old real quick. <a href="https://github.com/ddollar/foreman">Foreman</a>
+is a great tool for dealing with situations like this.</p>
+
+<p>For a basic intro to foreman <a href="http://blog.daviddollar.org/2011/05/06/introducing-foreman.html">go here</a>.</p>
+
+<h2>Tips</h2>
+
+<p>Most examples of foreman show you how to run multiple processes from the
+same folder but what if you need to run them from separate folders? My project
+is setup like so:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>|-- project_root
+</span><span class='line'>    |-- website (rails)
+</span><span class='line'>    |-- account_services (sinatra)</span></code></pre></td></tr></table></div></figure>
+
+
+<p>A typical <code>Procfile</code> looks like:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>website: bundle exec rails server -p 3000</span></code></pre></td></tr></table></div></figure>
+
+
+<p>But my <code>Procfile</code> is in the project root and I need to run both a rails webserver
+in <code>website</code> and a sinatra app in <code>account_services</code> so that wont work. You can
+however do this:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>website: sh -c 'cd website && bundle exec rails s -p 3000'
+</span><span class='line'>account_services: sh -c 'cd account_services && bundle exec rackup -p 3001'</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Use the <code>sh</code> command to change into the appropriate directory and run the
+appropriate command to get your process running.</p>
+
+<p>You&rsquo;ll notice that I specify port 3000 even though that&rsquo;s the default in rails.
+The reason
+is because sometimes you might end up with processes that don&rsquo;t get shut down by
+foreman. In those cases you can use <code>pgrep -f 3000 | xargs kill</code> to kill them off.
+Specifying the port number makes it easy to find the process using <code>pgrep</code>.</p>
+
+<h2>Advantages</h2>
+
+<p>You might be wondering if it&rsquo;s really worth the effort. After all, it&rsquo;s just one
+rails app and one sinatra app. In reality, my project has about 8
+process that need to be up and running:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>1 rails app
+</span><span class='line'>3 sinatra services
+</span><span class='line'>1 database
+</span><span class='line'>1 caching
+</span><span class='line'>1 job queue
+</span><span class='line'>1 messaging system</span></code></pre></td></tr></table></div></figure>
+
+
+<p>So rather than opening up 8 different tabs and fiddling with the history to find
+the right commands I just go to my project root and type <code>foreman start</code> and
+everything is up and running.</p>
+
+<p>Another advantage is that the logs show up in one terminal window. At first I
+didn&rsquo;t like that but it turns out to be very useful. When you have 8 different
+processes outputting information it&rsquo;s nice to be able to see them aggregated in
+one location. Plus, if you had to search in 8 different tabs you&rsquo;d also have to scroll
+through each one &ndash; what a pain.</p>
+
+<p>For more fine grained control you could always run the process in their own window.
+That&rsquo;s what I do with the rails website. I like to see the output in a separate
+window and I might need to restart it when changing config files or something.</p>
+
+<p>Anyway, if you start moving away from those monolithic rails apps and start
+splitting them up into services take a look at <a href="https://github.com/ddollar/foreman">foreman</a></p>
+</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-09-05T20:24:00+08:00" pubdate data-updated="true">Sep 5<span>th</span>, 2013</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/foreman/'>Foreman</a>, <a class='category' href='/blog/categories/rails/'>Rails</a>, <a class='category' href='/blog/categories/ruby/'>Ruby</a>
+
+
+</div>
+	
+		<span class="comments"><a href="/blog/2013/09/05/using-foreman/#disqus_thread">Comments</a></span>
+	
+</div></article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+<!---	<a class="addthis_counter addthis_pill_style"></a> --->
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+<section id="comment">
+    <h2 class="title">Comments</h2>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2013
+
+    Daniel Yoon
+
+<br>
+Powered by Octopress.
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'dyblog';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://daniely.github.io/blog/2013/09/05/using-foreman/';
+        var disqus_url = 'http://daniely.github.io/blog/2013/09/05/using-foreman/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+</body>
+</html>
