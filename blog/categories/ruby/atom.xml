@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Ruby | daniely.github.io]]></title>
   <link href="http://daniely.github.io/blog/categories/ruby/atom.xml" rel="self"/>
   <link href="http://daniely.github.io/"/>
-  <updated>2013-09-05T21:07:18+08:00</updated>
+  <updated>2013-09-05T23:45:24+08:00</updated>
   <id>http://daniely.github.io/</id>
   <author>
     <name><![CDATA[Daniel Yoon]]></name>
@@ -91,6 +91,8 @@ didn&rsquo;t like that but it turns out to be very useful. When you have 8 diffe
 processes outputting information it&rsquo;s nice to be able to see them aggregated in
 one location. Plus, if you had to search in 8 different tabs you&rsquo;d also have to scroll
 through each one &ndash; what a pain.</p>
+
+<p><img class="left <a" src="href="http://new.tinygrab.com/0392f215b1cc9d858cbdc36d4b83c862f46badaa66.png">http://new.tinygrab.com/0392f215b1cc9d858cbdc36d4b83c862f46badaa66.png</a>" width="400"></p>
 
 <p>For more fine grained control you could always run the process in their own window.
 That&rsquo;s what I do with the rails website. I like to see the output in a separate
