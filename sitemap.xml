@@ -2,38 +2,50 @@
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
         <loc>http://daniely.github.io/blog/2012/05/03/vagrant-nfs-mount-failing-on-mac-osx/</loc>
-        <lastmod>2013-08-09T22:49:49+08:00</lastmod>
+        <lastmod>2014-03-30T21:29:11+08:00</lastmod>
     </url>
     <url>
         <loc>http://daniely.github.io/blog/2012/06/08/ping-range-of-urls/</loc>
-        <lastmod>2013-08-08T23:23:55+08:00</lastmod>
+        <lastmod>2014-03-30T21:29:11+08:00</lastmod>
     </url>
     <url>
         <loc>http://daniely.github.io/blog/2012/06/12/pairing-with-avdi/</loc>
-        <lastmod>2013-08-09T23:00:54+08:00</lastmod>
+        <lastmod>2014-03-30T21:29:11+08:00</lastmod>
     </url>
     <url>
         <loc>http://daniely.github.io/blog/2013/09/05/using-foreman/</loc>
-        <lastmod>2013-09-05T23:44:48+08:00</lastmod>
+        <lastmod>2014-03-30T21:29:11+08:00</lastmod>
+    </url>
+    <url>
+        <loc>http://daniely.github.io/blog/2013/10/12/long-feature-branch-names-in-git/</loc>
+        <lastmod>2014-03-30T21:29:11+08:00</lastmod>
+    </url>
+    <url>
+        <loc>http://daniely.github.io/about/</loc>
+        <lastmod>2014-03-30T21:29:11+08:00</lastmod>
     </url>
     <url>
         <loc>http://daniely.github.io/archives/</loc>
-        <lastmod>2013-09-05T23:44:48+08:00</lastmod>
+        <lastmod>2014-03-30T21:29:11+08:00</lastmod>
     </url>
     <url>
         <loc>http://daniely.github.io/blog/archives/</loc>
-        <lastmod>2013-09-05T23:44:48+08:00</lastmod>
+        <lastmod>2014-03-30T21:29:11+08:00</lastmod>
+    </url>
+    <url>
+        <loc>http://daniely.github.io/blog/categories/</loc>
+        <lastmod>2014-03-30T21:29:11+08:00</lastmod>
     </url>
     <url>
         <loc>http://daniely.github.io/blog/</loc>
-        <lastmod>2013-09-05T23:44:48+08:00</lastmod>
+        <lastmod>2014-03-30T21:29:11+08:00</lastmod>
     </url>
     <url>
         <loc>http://daniely.github.io/</loc>
-        <lastmod>2013-09-05T23:44:48+08:00</lastmod>
+        <lastmod>2014-03-30T21:29:11+08:00</lastmod>
     </url>
     <url>
         <loc>http://daniely.github.io/robots.txt</loc>
-        <lastmod>2013-08-08T23:23:55+08:00</lastmod>
+        <lastmod>2014-03-30T21:13:56+08:00</lastmod>
     </url>
 </urlset>

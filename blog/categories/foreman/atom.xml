@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Foreman | daniely.github.io]]></title>
   <link href="http://daniely.github.io/blog/categories/foreman/atom.xml" rel="self"/>
   <link href="http://daniely.github.io/"/>
-  <updated>2013-09-05T23:45:24+08:00</updated>
+  <updated>2014-03-30T21:32:22+08:00</updated>
   <id>http://daniely.github.io/</id>
   <author>
     <name><![CDATA[Daniel Yoon]]></name>
@@ -18,30 +18,27 @@
     <link href="http://daniely.github.io/blog/2013/09/05/using-foreman/"/>
     <updated>2013-09-05T20:24:00+08:00</updated>
     <id>http://daniely.github.io/blog/2013/09/05/using-foreman</id>
-    <content type="html"><![CDATA[<h2>Intro</h2>
+    <content type="html"><![CDATA[<h2 id="intro">Intro</h2>
 
-<p>One of the Rails apps I&rsquo;m working on depends on a lot of locally running
-services &ndash; database, job queue, web services, just to name a few. When I
+<p>One of the Rails apps I’m working on depends on a lot of locally running
+services - database, job queue, web services, just to name a few. When I
 started on the project I was opening up a new iTerm2 tab for each service
 but that got old real quick. <a href="https://github.com/ddollar/foreman">Foreman</a>
 is a great tool for dealing with situations like this.</p>
 
 <p>For a basic intro to foreman <a href="http://blog.daviddollar.org/2011/05/06/introducing-foreman.html">go here</a>.</p>
 
-<h2>Tips</h2>
+<h2 id="tips">Tips</h2>
 
 <p>Most examples of foreman show you how to run multiple processes from the
 same folder but what if you need to run them from separate folders? My project
 is setup like so:</p>
 
-<p>```
-|&mdash; project_root</p>
-
-<pre><code>|-- website (rails)
-|-- account_services (sinatra)
-</code></pre>
-
-<p>```</p>
+<p><code>
+|-- project_root
+    |-- website (rails)
+    |-- account_services (sinatra)
+</code></p>
 
 <p>A typical <code>Procfile</code> looks like:</p>
 
@@ -61,15 +58,15 @@ account_services: sh -c 'cd account_services &amp;&amp; bundle exec rackup -p 30
 <p>Use the <code>sh</code> command to change into the appropriate directory and run the
 appropriate command to get your process running.</p>
 
-<p>You&rsquo;ll notice that I specify port 3000 even though that&rsquo;s the default in rails.
+<p>You’ll notice that I specify port 3000 even though that’s the default in rails.
 The reason
-is because sometimes you might end up with processes that don&rsquo;t get shut down by
+is because sometimes you might end up with processes that don’t get shut down by
 foreman. In those cases you can use <code>pgrep -f 3000 | xargs kill</code> to kill them off.
 Specifying the port number makes it easy to find the process using <code>pgrep</code>.</p>
 
-<h2>Advantages</h2>
+<h2 id="advantages">Advantages</h2>
 
-<p>You might be wondering if it&rsquo;s really worth the effort. After all, it&rsquo;s just one
+<p>You might be wondering if it’s really worth the effort. After all, it’s just one
 rails app and one sinatra app. In reality, my project has about 8
 process that need to be up and running:</p>
 
@@ -87,15 +84,15 @@ the right commands I just go to my project root and type <code>foreman start</co
 everything is up and running.</p>
 
 <p>Another advantage is that the logs show up in one terminal window. At first I
-didn&rsquo;t like that but it turns out to be very useful. When you have 8 different
-processes outputting information it&rsquo;s nice to be able to see them aggregated in
-one location. Plus, if you had to search in 8 different tabs you&rsquo;d also have to scroll
-through each one &ndash; what a pain.</p>
+didn’t like that but it turns out to be very useful. When you have 8 different
+processes outputting information it’s nice to be able to see them aggregated in
+one location. Plus, if you had to search in 8 different tabs you’d also have to scroll
+through each one - what a pain.</p>
 
-<p><img class="left <a" src="href="http://new.tinygrab.com/0392f215b1cc9d858cbdc36d4b83c862f46badaa66.png">http://new.tinygrab.com/0392f215b1cc9d858cbdc36d4b83c862f46badaa66.png</a>" width="400"></p>
+<p><img class="left" src="http://new.tinygrab.com/0392f215b1cc9d858cbdc36d4b83c862f46badaa66.png" width="400"></p>
 
 <p>For more fine grained control you could always run the process in their own window.
-That&rsquo;s what I do with the rails website. I like to see the output in a separate
+That’s what I do with the rails website. I like to see the output in a separate
 window and I might need to restart it when changing config files or something.</p>
 
 <p>Anyway, if you start moving away from those monolithic rails apps and start

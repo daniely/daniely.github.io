@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Ruby | daniely.github.io]]></title>
   <link href="http://daniely.github.io/blog/categories/ruby/atom.xml" rel="self"/>
   <link href="http://daniely.github.io/"/>
-  <updated>2013-09-05T23:45:24+08:00</updated>
+  <updated>2014-03-30T21:32:22+08:00</updated>
   <id>http://daniely.github.io/</id>
   <author>
     <name><![CDATA[Daniel Yoon]]></name>
@@ -18,30 +18,27 @@
     <link href="http://daniely.github.io/blog/2013/09/05/using-foreman/"/>
     <updated>2013-09-05T20:24:00+08:00</updated>
     <id>http://daniely.github.io/blog/2013/09/05/using-foreman</id>
-    <content type="html"><![CDATA[<h2>Intro</h2>
+    <content type="html"><![CDATA[<h2 id="intro">Intro</h2>
 
-<p>One of the Rails apps I&rsquo;m working on depends on a lot of locally running
-services &ndash; database, job queue, web services, just to name a few. When I
+<p>One of the Rails apps I’m working on depends on a lot of locally running
+services - database, job queue, web services, just to name a few. When I
 started on the project I was opening up a new iTerm2 tab for each service
 but that got old real quick. <a href="https://github.com/ddollar/foreman">Foreman</a>
 is a great tool for dealing with situations like this.</p>
 
 <p>For a basic intro to foreman <a href="http://blog.daviddollar.org/2011/05/06/introducing-foreman.html">go here</a>.</p>
 
-<h2>Tips</h2>
+<h2 id="tips">Tips</h2>
 
 <p>Most examples of foreman show you how to run multiple processes from the
 same folder but what if you need to run them from separate folders? My project
 is setup like so:</p>
 
-<p>```
-|&mdash; project_root</p>
-
-<pre><code>|-- website (rails)
-|-- account_services (sinatra)
-</code></pre>
-
-<p>```</p>
+<p><code>
+|-- project_root
+    |-- website (rails)
+    |-- account_services (sinatra)
+</code></p>
 
 <p>A typical <code>Procfile</code> looks like:</p>
 
@@ -61,15 +58,15 @@ account_services: sh -c 'cd account_services &amp;&amp; bundle exec rackup -p 30
 <p>Use the <code>sh</code> command to change into the appropriate directory and run the
 appropriate command to get your process running.</p>
 
-<p>You&rsquo;ll notice that I specify port 3000 even though that&rsquo;s the default in rails.
+<p>You’ll notice that I specify port 3000 even though that’s the default in rails.
 The reason
-is because sometimes you might end up with processes that don&rsquo;t get shut down by
+is because sometimes you might end up with processes that don’t get shut down by
 foreman. In those cases you can use <code>pgrep -f 3000 | xargs kill</code> to kill them off.
 Specifying the port number makes it easy to find the process using <code>pgrep</code>.</p>
 
-<h2>Advantages</h2>
+<h2 id="advantages">Advantages</h2>
 
-<p>You might be wondering if it&rsquo;s really worth the effort. After all, it&rsquo;s just one
+<p>You might be wondering if it’s really worth the effort. After all, it’s just one
 rails app and one sinatra app. In reality, my project has about 8
 process that need to be up and running:</p>
 
@@ -87,15 +84,15 @@ the right commands I just go to my project root and type <code>foreman start</co
 everything is up and running.</p>
 
 <p>Another advantage is that the logs show up in one terminal window. At first I
-didn&rsquo;t like that but it turns out to be very useful. When you have 8 different
-processes outputting information it&rsquo;s nice to be able to see them aggregated in
-one location. Plus, if you had to search in 8 different tabs you&rsquo;d also have to scroll
-through each one &ndash; what a pain.</p>
+didn’t like that but it turns out to be very useful. When you have 8 different
+processes outputting information it’s nice to be able to see them aggregated in
+one location. Plus, if you had to search in 8 different tabs you’d also have to scroll
+through each one - what a pain.</p>
 
-<p><img class="left <a" src="href="http://new.tinygrab.com/0392f215b1cc9d858cbdc36d4b83c862f46badaa66.png">http://new.tinygrab.com/0392f215b1cc9d858cbdc36d4b83c862f46badaa66.png</a>" width="400"></p>
+<p><img class="left" src="http://new.tinygrab.com/0392f215b1cc9d858cbdc36d4b83c862f46badaa66.png" width="400"></p>
 
 <p>For more fine grained control you could always run the process in their own window.
-That&rsquo;s what I do with the rails website. I like to see the output in a separate
+That’s what I do with the rails website. I like to see the output in a separate
 window and I might need to restart it when changing config files or something.</p>
 
 <p>Anyway, if you start moving away from those monolithic rails apps and start
@@ -108,19 +105,19 @@ splitting them up into services take a look at <a href="https://github.com/ddoll
     <link href="http://daniely.github.io/blog/2012/06/12/pairing-with-avdi/"/>
     <updated>2012-06-12T17:54:00+08:00</updated>
     <id>http://daniely.github.io/blog/2012/06/12/pairing-with-avdi</id>
-    <content type="html"><![CDATA[<h2>Intro</h2>
+    <content type="html"><![CDATA[<h2 id="intro">Intro</h2>
 
 <p>Back in 2012 <a href="http://devblog.avdi.org/">Avdi Grimm</a> was offering to pair program
-for free &ndash; all you had to do was ask. Avdi <a href="http://devblog.avdi.org/2013/02/19/taking-a-break-from-pair-programming/">no longer</a>
+for free - all you had to do was ask. Avdi <a href="http://devblog.avdi.org/2013/02/19/taking-a-break-from-pair-programming/">no longer</a>
 offers this amazing service but I wanted to at least share about one of our pairing
 sessions as I feel very lucky to have had the opportunity.</p>
 
-<h2>Spree Installer Bug</h2>
+<h2 id="spree-installer-bug">Spree Installer Bug</h2>
 
 <p>The first problem we tackled was a small bug in <a href="https://github.com/spree/spree">Spree Commerce</a>.
 During installation it would sometimes incorrectly detect a successful imagemagick
 installation.  I had already submitted
-a <a href="https://github.com/spree/spree/pull/1533">pull request</a> but I didn&rsquo;t know
+a <a href="https://github.com/spree/spree/pull/1533">pull request</a> but I didn’t know
 how to go about writing a test for it.</p>
 
 <p>In the end we decided not to write a real test but we did do a quick spike.
@@ -128,24 +125,20 @@ Without going into too much detail, the original
 pull request runs a shell command then checks the exit code. If it runs without
 errors we can assume imagemagick is correctly installed.</p>
 
-<p>``` ruby</p>
+<p>``` ruby
+# shell command to check if imagemagick is installed correctly
+%x(identify -version)</p>
 
-<h1>shell command to check if imagemagick is installed correctly</h1>
+<h1 id="check-exit-code">check exit code</h1>
+<p>$? =&gt; #&lt;Process::Status: pid 16493 exit 0&gt;</p>
 
-<p>%x(identify -version)</p>
-
-<h1>check exit code</h1>
-
-<p>$? => #&lt;Process::Status: pid 16493 exit 0></p>
-
-<h1>better way to check</h1>
-
-<p>$?.success? => true
+<h1 id="better-way-to-check">better way to check</h1>
+<p>$?.success? =&gt; true
 ```</p>
 
-<p>First thing Avdi says is, &ldquo;lets see if we can override the %x command&rdquo;. I just
+<p>First thing Avdi says is, “lets see if we can override the %x command”. I just
 stared at him blankly on our screenshare. Wut? How? Do we write a method like
-<code>def %x(command)</code> or something? I tried, it doesn&rsquo;t work. So what to do?</p>
+<code>def %x(command)</code> or something? I tried, it doesn’t work. So what to do?</p>
 
 <p>Another common way to run shell commands from ruby is to use backticks.</p>
 
@@ -153,51 +146,45 @@ stared at him blankly on our screenshare. Wut? How? Do we write a method like
 `pwd` =&gt; "/Users/daniel/code\n"
 </code></p>
 
-<p>Somehow Avdi knew that the <code>%x</code> syntax uses backticks. It&rsquo;s <a href="http://ruby-doc.org/core-2.0/Kernel.html#method-i-60">documented</a>
+<p>Somehow Avdi knew that the <code>%x</code> syntax uses backticks. It’s <a href="http://ruby-doc.org/core-2.0/Kernel.html#method-i-60">documented</a>
 but I was still surprised he knew this. He had a hunch that we could override
-backticks and in turn override <code>%x</code> and that&rsquo;s exactly what we did.</p>
+backticks and in turn override <code>%x</code> and that’s exactly what we did.</p>
 
-<p><code>`` ruby
+<p><code>ruby
 class Foo
-  def</code>(s)</p>
-
-<pre><code>puts 'hello'
-</code></pre>
-
-<p>  end
+  def `(s)
+    puts 'hello'
+  end
 end
-```</p>
+</code></p>
 
 <p>But after we wrote this bit I was stuck again. How the heck do you call that
 method? <code>Foo.new`('some command')</code> ??? That wont work. The answer is to use
 <code>instance_eval</code>.</p>
 
-<p><code>`` ruby
+<p>``` ruby
 o = Foo.new
-o.instance_eval {</code>ls` }</p>
+o.instance_eval { <code>ls</code> }
+# =&gt; ‘hello’</p>
 
-<h1>=> &lsquo;hello&rsquo;</h1>
-
-<h1>with the %x syntax</h1>
-
+<h1 id="with-the-x-syntax">with the %x syntax</h1>
 <p>o.instance_eval { %x[ls] }</p>
 
-<h1>exit code ok?</h1>
-
-<p>$?  # => 0
+<h1 id="exit-code-ok">exit code ok?</h1>
+<p>$?  # =&gt; 0
 ```</p>
 
 <p>The other issue was figuring out whether or not we could override the <code>$?</code>
-value. But turns out it&rsquo;s read only.</p>
+value. But turns out it’s read only.</p>
 
-<p>This was the point when Avdi realized that there&rsquo;s no reason
+<p>This was the point when Avdi realized that there’s no reason
 to use backticks or the <code>%x[]</code> way of making system calls because these
 versions are mainly used for their return values. All we want to know is if the
 command executed successfully and relying on
 <code>$?</code> for that info is in a way reaching outside of our methods boundaries.</p>
 
 <p>A simpler/better approach is to call the command and see if
-it was successful or not. That&rsquo;s it. And we can do just that with <code>system</code>. Thus our
+it was successful or not. That’s it. And we can do just that with <code>system</code>. Thus our
 code refactored to this:</p>
 
 <p><code>ruby
@@ -207,43 +194,41 @@ success = system('identify -version')
 <p>We replaced 7 lines of code with just that one call in a new
 <a href="https://github.com/spree/spree/pull/1660/files">pull request</a></p>
 
-<h2>Double Error Messages</h2>
+<h2 id="double-error-messages">Double Error Messages</h2>
 
-<p>Then we talked about the double error messages that show up when you have a form &lsquo;hint&rsquo;
-that&rsquo;s the same as the error message. I was asking Avdi to help me figure out
-how to &ldquo;correctly&rdquo; change the way rails handles this. But it turns out the
-&ldquo;correct&rdquo; solution is to not touch rails at all. Instead, change the markup.
+<p>Then we talked about the double error messages that show up when you have a form ‘hint’
+that’s the same as the error message. I was asking Avdi to help me figure out
+how to “correctly” change the way rails handles this. But it turns out the
+“correct” solution is to not touch rails at all. Instead, change the markup.
 This was solved by adding a css style to hide the hint when an error
-group is present. That&rsquo;s it! simple!</p>
+group is present. That’s it! simple!</p>
 
-<h2>Finding Solutions</h2>
+<h2 id="finding-solutions">Finding Solutions</h2>
 
 <p>This was a valuable lesson I learned from Avdi. While he has the technical chops
-to program his way around things that&rsquo;s not what he turns to first.
+to program his way around things that’s not what he turns to first.
 Instead, he looks to see if the solution being implemented is the right fit.
-Often times it&rsquo;s not and there might be a simpler solution to the problem. We just
+Often times it’s not and there might be a simpler solution to the problem. We just
 saw two examples of that.</p>
 
-<h2>Getting Better</h2>
+<h2 id="getting-better">Getting Better</h2>
 
 <p>For the last part of our session I asked for advice on improving as a developer.
 These are the tips he gave in no particular order:</p>
 
 <ul>
-<li>Pair program</li>
-<li>Read code. rack is a good codebase to look at</li>
-<li>Read books. Blogs are ok but books tend to have less errors
-
-<ul>
-<li>Eloquent Ruby, Ruby Best Practices, The Ruby Way, Ruby Quiz,
+  <li>Pair program</li>
+  <li>Read code. rack is a good codebase to look at</li>
+  <li>Read books. Blogs are ok but books tend to have less errors
+    <ul>
+      <li>Eloquent Ruby, Ruby Best Practices, The Ruby Way, Ruby Quiz,
 ruby talk mailing list, anything written by James Gray,
 Peepcode Play by Play</li>
-</ul>
-</li>
+    </ul>
+  </li>
 </ul>
 
-
-<h2>Thanks Avdi for the awesome pairing session!</h2>
+<h2 id="thanks-avdi-for-the-awesome-pairing-session">Thanks Avdi for the awesome pairing session!</h2>
 ]]></content>
   </entry>
   
@@ -252,39 +237,38 @@ Peepcode Play by Play</li>
     <link href="http://daniely.github.io/blog/2012/06/08/ping-range-of-urls/"/>
     <updated>2012-06-08T22:45:00+08:00</updated>
     <id>http://daniely.github.io/blog/2012/06/08/ping-range-of-urls</id>
-    <content type="html"><![CDATA[<p><strong>tl;dr</strong> Coming from a Microsoft web dev background I&rsquo;m often surprised at how simple yet
+    <content type="html"><![CDATA[<p><strong>tl;dr</strong> Coming from a Microsoft web dev background I’m often surprised at how simple yet
 productive ruby can be. An example of this is a short (1 line) ruby script I wrote to ping a list of urls and
 display summary results.</p>
 
-<h2>Background</h2>
+<h2 id="background">Background</h2>
 
-<p>I&rsquo;ll be honest, switching from the Microsoft stack to the rails stack was hard. But one
-thing that helped me feel productive early on was focusing on ruby first.
-Not only is ruby essential to becoming a good rails dev but the little wins you have
-with it along the way will boost your morale as you struggle through learning
+<p>I’ll be honest, switching from the Microsoft stack to the rails stack was hard. But one 
+thing that helped me feel productive early on was focusing on ruby first. 
+Not only is ruby essential to becoming a good rails dev but the little wins you have 
+with it along the way will boost your morale as you struggle through learning 
 how all the various pieces work together.</p>
 
 <p>A few months back I wanted to find out which VPN server had the best ping.
 Since ruby/rails forces (encourages?) you to get familiar with the command line I already
 knew there were commands at my disposal that I just needed to leverage.</p>
 
-<h2>The Program</h2>
-
-<p>The basic command I wanted to run was <code>ping vpn.test.com</code>. In ruby, there are
+<h2 id="the-program">The Program</h2>
+<p>The basic command I wanted to run was <code>ping vpn.test.com</code>. In ruby, there are 
 several ways to get a string to run as if it were a command
 typed into your terminal shell. The simplest is probably backticks. So if you
 put <code>`pwd`</code> in a ruby script it will output something along the lines of
 <code>/Users/Daniel/src</code>.</p>
 
 <p>So to run ping all you need to do is <code>`ping vpn.test.com`</code>.
-But I didn&rsquo;t want to run the command on just one url, I wanted it on a range.</p>
+But I didn’t want to run the command on just one url, I wanted it on a range.</p>
 
 <p>```
 ping vpn-1.test.com
 ping vpn-2.test.com
 ping vpn-3.test.com</p>
 
-<p>etc&hellip; about 20 urls like this
+<p>etc… about 20 urls like this
 ```</p>
 
 <p>Using ruby we can generate the list of commands (string literals) like so:</p>
@@ -292,21 +276,20 @@ ping vpn-3.test.com</p>
 <p>```ruby
 commands = []   # array of commands
 (1..20).each do |num|
-  commands &lt;&lt; &ldquo;ping vpn-#{num}.test.com&rdquo;
+  commands « “ping vpn-#{num}.test.com”
 end</p>
 
-<h1>commands</h1>
-
-<p>[&ldquo;ping vpn-1.test.com&rdquo;,
-&ldquo;ping vpn-2.test.com&rdquo;,
-&ldquo;ping vpn-3.test.com&rdquo;, etc&hellip; ]
+<h1 id="commands">commands</h1>
+<p>[“ping vpn-1.test.com”,
+“ping vpn-2.test.com”,
+“ping vpn-3.test.com”, etc… ]
 ```</p>
 
 <p>Now we have a small problem, the command we want to run is no longer a string
-literal. But it&rsquo;s easy enough to get around that by wrapping the command with
+literal. But it’s easy enough to get around that by wrapping the command with
 <code>#{}</code></p>
 
-<p>We also want to loop through and run each command. Here&rsquo;s how to do both:</p>
+<p>We also want to loop through and run each command. Here’s how to do both:</p>
 
 <p><code>ruby
 commands.each do |command|
@@ -314,7 +297,7 @@ commands.each do |command|
 end
 </code></p>
 
-<p>By default the <code>ping</code> command will continue pinging a url until a user cancels the command.
+<p>By default the <code>ping</code> command will continue pinging a url until a user cancels the command. 
 In order to ping one url and then move onto the next without any user intervention
 we need to specify a set number of times to ping a url. For that just add the <code>-c</code> flag
 along with number of times to ping. In your terminal, running <code>ping -c2 vpn-1.test.com</code>
@@ -325,7 +308,7 @@ PING www.vpn-1.test.com (74.125.131.99): 56 data bytes
 64 bytes from 74.125.131.99: icmp_seq=0 ttl=46 time=409.803 ms
 64 bytes from 74.125.131.99: icmp_seq=1 ttl=46 time=407.988 ms</p>
 
-<p>&mdash;&ndash; www.vpn-1.test.com ping statistics &mdash;&ndash;
+<p>— www.vpn-1.test.com ping statistics —
 2 packets transmitted, 2 packets received, 0.0% packet loss
 round-trip min/avg/max/stddev = 407.988/408.895/409.803/0.908 ms
 ```</p>
@@ -337,20 +320,20 @@ it to a variable.</p>
 output = `ping -c2 vpn-1.test.com`
 </code></p>
 
-<p>All I&rsquo;m really interested in though is the summary info on the last line. So
-let&rsquo;s parse the output. In our <code>ping</code> results, each line ends with a newline <code>\n</code>.
-We can ue the <code>split</code> command on a string to split it up into an array. So doing
+<p>All I’m really interested in though is the summary info on the last line. So
+let’s parse the output. In our <code>ping</code> results, each line ends with a newline <code>\n</code>.
+We can ue the <code>split</code> command on a string to split it up into an array. So doing 
 <code>output.split("\n")</code> will result in an array like:</p>
 
 <p>``` ruby output split into an array</p>
 
-<p>[&ldquo;PING www.l.vpn-1.test.com (74.125.131.99): 56 data bytes&rdquo;,
-&ldquo;64 bytes from 74.125.131.99: icmp_seq=0 ttl=46 time=409.803 ms&rdquo;,
-&ldquo;64 bytes from 74.125.131.99: icmp_seq=1 ttl=46 time=407.988 ms&rdquo;,
-&ldquo;&rdquo;,
-&ldquo;&mdash;&ndash; www.l.vpn-1.test.com ping statistics &mdash;&ndash;&rdquo;,
-&ldquo;2 packets transmitted, 2 packets received, 0.0% packet loss&rdquo;,
-&ldquo;round-trip min/avg/max/stddev = 407.988/408.895/409.803/0.908 ms&rdquo;]
+<p>[“PING www.l.vpn-1.test.com (74.125.131.99): 56 data bytes”,
+“64 bytes from 74.125.131.99: icmp_seq=0 ttl=46 time=409.803 ms”,
+“64 bytes from 74.125.131.99: icmp_seq=1 ttl=46 time=407.988 ms”,
+“”,
+“— www.l.vpn-1.test.com ping statistics —”,
+“2 packets transmitted, 2 packets received, 0.0% packet loss”,
+“round-trip min/avg/max/stddev = 407.988/408.895/409.803/0.908 ms”]
 ```</p>
 
 <p>Then to get the last element in the array call <code>.last</code> on the array. The
@@ -360,7 +343,7 @@ full command to parse the output and get the summary info is:</p>
 output_summary = output.split("\n").last
 </code></p>
 
-<p>But actually, we don&rsquo;t even need the variable <code>output_summary</code>. We can just parse
+<p>But actually, we don’t even need the variable <code>output_summary</code>. We can just parse
 on the value returned from the command directly. Like so:</p>
 
 <p><code>ruby
@@ -377,9 +360,9 @@ on the value returned from the command directly. Like so:</p>
   puts `#{command}`.split("\n").last
 end
 </code>
-That&rsquo;s it! The first time I saw how little code I had to write I was simply blown away.
+That’s it! The first time I saw how little code I had to write I was simply blown away.
 To run it, save the script to a file (for example <code>ping_urls.rb</code> then run it with
-<code>ruby ping_urls.rb</code>. Here&rsquo;s what it looks like when you run the script.</p>
+<code>ruby ping_urls.rb</code>. Here’s what it looks like when you run the script.</p>
 
 <p>```
 host: vpn-1.test.com round-trip min/avg/max/stddev = 354.237/355.450/356.662/1.213 ms
@@ -388,11 +371,11 @@ host: vpn-3.test.com round-trip min/avg/max/stddev = 345.407/350.691/355.975/5.2
 host: vpn-4.test.com round-trip min/avg/max/stddev = 343.635/344.315/344.995/0.680 ms
 host: vpn-5.test.com round-trip min/avg/max/stddev = 352.627/353.346/354.064/0.718 ms</p>
 
-<p>etc&hellip;
+<p>etc…
 ```</p>
 
-<p>Just to show you how terse ruby can be you can write the whole thing in one
-line without even creating a file to run it from. If you have ruby installed
+<p>Just to show you how terse ruby can be you can write the whole thing in one 
+line without even creating a file to run it from. If you have ruby installed 
 you can run a command with the <code>-e</code> flag. So typing <code>ruby -e 'puts "hi"'</code> in your
 terminal shell will output <code>"hi"</code>. The terse version of the ping script is:</p>
 
@@ -409,10 +392,10 @@ ruby -e '(1..20)each { |num| `ping -c2 vpn-#{num}.test.com`.split("\n").last }'
     <link href="http://daniely.github.io/blog/2012/05/03/vagrant-nfs-mount-failing-on-mac-osx/"/>
     <updated>2012-05-03T23:01:00+08:00</updated>
     <id>http://daniely.github.io/blog/2012/05/03/vagrant-nfs-mount-failing-on-mac-osx</id>
-    <content type="html"><![CDATA[<h2>The Problem</h2>
+    <content type="html"><![CDATA[<h2 id="the-problem">The Problem</h2>
 
 <p>Vagrant is running slow so you decide to try nfs shared folders since there is
-a <a href="http://vagrantup.com/v1/docs/nfs.html">documented</a> performance boost
+a <a href="http://vagrantup.com/v1/docs/nfs.html">documented</a> performance boost 
 with it. However, running <code>vagrant up</code> fails with the error:</p>
 
 <p><code>
@@ -437,11 +420,11 @@ su: Sorry
 
 <p>Notice the <code>su: Sorry</code> showing up several times.</p>
 
-<h2>The Solution</h2>
+<h2 id="the-solution">The Solution</h2>
 
-<p>Turns out that even though I gave the right password, my host machine didn&rsquo;t
+<p>Turns out that even though I gave the right password, my host machine didn’t
 have root user enabled. For whatever reason, this was preventing vagrant from
-modifying the guest machine&rsquo;s /etc/exports file (shown by <code>su: Sorry</code>). Once I
+modifying the guest machine’s /etc/exports file (shown by <code>su: Sorry</code>). Once I
 enabled the root user everything worked just fine.</p>
 ]]></content>
   </entry>

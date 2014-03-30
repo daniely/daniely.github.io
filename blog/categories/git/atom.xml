@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Git | daniely.github.io]]></title>
+  <link href="http://daniely.github.io/blog/categories/git/atom.xml" rel="self"/>
+  <link href="http://daniely.github.io/"/>
+  <updated>2014-03-30T21:32:22+08:00</updated>
+  <id>http://daniely.github.io/</id>
+  <author>
+    <name><![CDATA[Daniel Yoon]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Long Feature Branch Names in Git]]></title>
+    <link href="http://daniely.github.io/blog/2013/10/12/long-feature-branch-names-in-git/"/>
+    <updated>2013-10-12T15:01:00+08:00</updated>
+    <id>http://daniely.github.io/blog/2013/10/12/long-feature-branch-names-in-git</id>
+    <content type="html"><![CDATA[<p>Sometimes I have really long branch names that I need to put specify in a
+git command. For example:</p>
+
+<p><code>
+git push origin feature/ticket-number-short-feature-description
+</code></p>
+
+<p>One way you can handle this is to set a default branch or to change your
+git config so that <code>git push origin</code> will use the current branch.</p>
+
+<p>I wanted a little more control so I wrote a quick alias to help deal with it.</p>
+
+<p><code>
+$ alias cb="git rev-parse --abbrev-ref HEAD"
+$ echo `cb` # =&gt; feature/ticket-number-short-feature-description
+$ git push origin `cb`
+</code></p>
+]]></content>
+  </entry>
+  
+</feed>

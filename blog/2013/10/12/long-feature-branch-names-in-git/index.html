@@ -5,13 +5,13 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Blog Archive - daniely.github.io</title>
+  <title>Long Feature Branch Names in Git - daniely.github.io</title>
   <meta name="author" content="Daniel Yoon">
 
   
-  <meta name="description" content="Blog Archive 2013 Long Feature Branch Names in Git
-Oct 12 2013 posted in Git Using Foreman
-Sep 05 2013 posted in Foreman, Rails, Ruby 2012 Pairing &hellip;">
+  <meta name="description" content="Sometimes I have really long branch names that I need to put specify in a
+git command. For example: 1
+git push origin feature/ticket-number-short- &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -20,7 +20,7 @@ Sep 05 2013 posted in Foreman, Rails, Ruby 2012 Pairing &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://daniely.github.io/blog/archives/">
+  <link rel="canonical" href="http://daniely.github.io/blog/2013/10/12/long-feature-branch-names-in-git/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
    <link href="/stylesheets/data-table.css" media="screen, projection" rel="stylesheet" type="text/css" />
@@ -102,95 +102,109 @@ Sep 05 2013 posted in Foreman, Rails, Ruby 2012 Pairing &hellip;">
   <div id="main">
     <div id="content">
       <div>
-<article role="article">
+<article class="hentry" role="article">
   
   <header>
-    <h1 class="entry-title">Blog Archive</h1>
+    
+      <h1 class="entry-title">Long Feature Branch Names in Git</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-12T15:01:00+08:00" pubdate data-updated="true">Oct 12<span>th</span>, 2013</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
     
   </header>
-  
-  <div id="blog-archives">
 
 
+<div class="entry-content"><p>Sometimes I have really long branch names that I need to put specify in a
+git command. For example:</p>
 
-  
-  <h2>2013</h2>
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">git push origin feature/ticket-number-short-feature-description</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<article>
-  
-<h1><a href="/blog/2013/10/12/long-feature-branch-names-in-git/">Long Feature Branch Names in Git</a></h1>
-<time datetime="2013-10-12T15:01:00+08:00" pubdate><span class='month'>Oct</span> <span class='day'>12</span> <span class='year'>2013</span></time>
+<p>One way you can handle this is to set a default branch or to change your
+git config so that <code>git push origin</code> will use the current branch.</p>
 
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/git/'>Git</a></span>
-</footer>
+<p>I wanted a little more control so I wrote a quick alias to help deal with it.</p>
 
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2013/09/05/using-foreman/">Using Foreman</a></h1>
-<time datetime="2013-09-05T20:24:00+08:00" pubdate><span class='month'>Sep</span> <span class='day'>05</span> <span class='year'>2013</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/foreman/'>Foreman</a>, <a class='category' href='/blog/categories/rails/'>Rails</a>, <a class='category' href='/blog/categories/ruby/'>Ruby</a></span>
-</footer>
-
-
-</article>
-
-
-
-  
-  <h2>2012</h2>
-
-<article>
-  
-<h1><a href="/blog/2012/06/12/pairing-with-avdi/">Pairing With Avdi</a></h1>
-<time datetime="2012-06-12T17:54:00+08:00" pubdate><span class='month'>Jun</span> <span class='day'>12</span> <span class='year'>2012</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/pair-programming/'>Pair Programming</a>, <a class='category' href='/blog/categories/ruby/'>Ruby</a></span>
-</footer>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2012/06/08/ping-range-of-urls/">Ping Range of Urls</a></h1>
-<time datetime="2012-06-08T22:45:00+08:00" pubdate><span class='month'>Jun</span> <span class='day'>08</span> <span class='year'>2012</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/ruby/'>Ruby</a></span>
-</footer>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2012/05/03/vagrant-nfs-mount-failing-on-mac-osx/">Vagrant NFS mount failing on mac osx</a></h1>
-<time datetime="2012-05-03T23:01:00+08:00" pubdate><span class='month'>May</span> <span class='day'>03</span> <span class='year'>2012</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/ruby/'>Ruby</a></span>
-</footer>
-
-
-</article>
-
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">$ alias cb="git rev-parse --abbrev-ref HEAD"
+</span><span class="line">$ echo `cb` # =&gt; feature/ticket-number-short-feature-description
+</span><span class="line">$ git push origin `cb`</span></code></pre></td></tr></table></div></figure></notextile></div>
 </div>
 
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard">Posted by <span class="fn">Daniel Yoon</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-12T15:01:00+08:00" pubdate data-updated="true">Oct 12<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/git/'>Git</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://daniely.github.io/blog/2013/10/12/long-feature-branch-names-in-git/" data-via="" data-counturl="http://daniely.github.io/blog/2013/10/12/long-feature-branch-names-in-git/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/09/05/using-foreman/" title="Previous Post: Using Foreman">&laquo; Using Foreman</a>
+      
+      
+    </p>
+  </footer>
 </article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
 
 </div>
 
@@ -275,7 +289,10 @@ Sep 05 2013 posted in Foreman, Rails, Ruby 2012 Pairing &hellip;">
       var disqus_shortname = 'dyblog';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://daniely.github.io/blog/2013/10/12/long-feature-branch-names-in-git/';
+        var disqus_url = 'http://daniely.github.io/blog/2013/10/12/long-feature-branch-names-in-git/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
